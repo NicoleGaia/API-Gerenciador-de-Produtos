@@ -1,4 +1,4 @@
-import { listar, buscarPorId, criar, editar, excluir } from '../models/productModel';
+import { listar, buscarPorId, criar, editar, excluir } from '../models/productModel.js';
 
 // Lista todos os produtos
 export function listarProdutos(req, res) {

@@ -1,7 +1,7 @@
 import { Router } from 'express';
 const router = Router();
-import { listarProdutos, buscarProduto, criarProduto, editarProduto, excluirProduto } from '../controllers/productController';
-import { validarProduto } from '../middlewares/validationMiddleware';
+import { listarProdutos, buscarProduto, criarProduto, editarProduto, excluirProduto } from '../controllers/productController.js';
+import { validarProduto } from '../middlewares/validationMiddleware.js';
 
 // Rotas da API de produtos
 router.get('/', listarProdutos);
