@@ -1,5 +1,5 @@
 // Middleware para validar os dados do produto
-exports.validarProduto = (req, res, next) => {
+export function validarProduto(req, res, next) {
   const { nome, preco } = req.body;
 
   // Verifica se o nome foi informado e é uma string
@@ -13,4 +13,4 @@ exports.validarProduto = (req, res, next) => {
   }
 
   next();
-};
+}

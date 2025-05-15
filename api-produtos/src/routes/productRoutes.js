@@ -1,13 +1,13 @@
-const express = require('express');
-const router = express.Router();
-const controller = require('../controllers/productController');
-const { validarProduto } = require('../middlewares/validationMiddleware');
+import { Router } from 'express';
+const router = Router();
+import { listarProdutos, buscarProduto, criarProduto, editarProduto, excluirProduto } from '../controllers/productController';
+import { validarProduto } from '../middlewares/validationMiddleware';
 
 // Rotas da API de produtos
-router.get('/', controller.listarProdutos);
-router.get('/:id', controller.buscarProduto);
-router.post('/', validarProduto, controller.criarProduto);
-router.put('/:id', validarProduto, controller.editarProduto);
-router.delete('/:id', controller.excluirProduto);
+router.get('/', listarProdutos);
+router.get('/:id', buscarProduto);
+router.post('/', validarProduto, criarProduto);
+router.put('/:id', validarProduto, editarProduto);
+router.delete('/:id', excluirProduto);
 
-module.exports = router;
+export default router;
