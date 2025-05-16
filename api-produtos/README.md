@@ -33,8 +33,6 @@ Esta API tem como objetivo gerenciar produtos de forma simples, permitindo opera
    git clone <url-do-repositorio>
    cd api-produtos
 
-## Instalação
-
 2. **Instale as dependências:**
    ```bash
    npm install
