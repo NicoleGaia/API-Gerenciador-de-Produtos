@@ -1,3 +1,8 @@
+//Função: É o ponto de entrada da aplicação. Inicializa o Express, 
+// configura middlewares globais, importa e usa as rotas, 
+// e inicia o servidor na porta definida.
+
+
 // Importa o Express
 import express, { json } from 'express';
 import productRoutes from './routes/productRoutes.js';

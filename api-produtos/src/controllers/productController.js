@@ -1,3 +1,9 @@
+// Função: Contém a lógica das operações da API (o que acontece quando uma rota é chamada).
+// Recebe as requisições, chama funções do model, trata respostas e erros.
+// Exemplo: Recebe um POST para criar produto, chama o model para salvar, 
+// retorna o produto criado.
+
+
 import { listar, buscarPorId, criar, editar, excluir } from '../models/productModel.js';
 
 // Lista todos os produtos

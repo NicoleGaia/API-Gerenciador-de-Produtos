@@ -1,3 +1,8 @@
+//Função: Contém funções intermediárias que processam a requisição antes de chegar ao controller.
+//Valida os dados enviados pelo cliente (ex: se o nome e preço do produto são válidos).
+//Se os dados estiverem errados, retorna erro antes de chegar ao controller.
+
+
 // Middleware para validar os dados do produto
 export function validarProduto(req, res, next) {
   // Função para validar um único produto

@@ -1,3 +1,6 @@
+//Função: Define os endpoints da API e qual controller será chamado para cada rota.
+//Exemplo: Quando chega um GET em /produtos, chama o controller para listar produtos.
+
 import { Router } from 'express';
 const router = Router();
 import { listarProdutos, buscarProduto, criarProduto, editarProduto, excluirProduto } from '../controllers/productController.js';
