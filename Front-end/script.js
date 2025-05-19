@@ -1,5 +1,5 @@
 // Define a URL base da API de produtos
-const API_URL = 'https://best-glitter-nest.glitch.me/produtos';
+const API_URL = 'http://localhost:3000/produtos'; /*https://best-glitter-nest.glitch.me/produtos*/
 
 // Função para buscar e exibir todos os produtos na tabela
 async function fetchProdutos() {
