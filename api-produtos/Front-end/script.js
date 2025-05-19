@@ -23,6 +23,7 @@ async function fetchProdutos() {
         <button style="background-color: #ef4444a9; border: 1px solid #919191;" onclick="removerProduto(${produto.id})">Excluir</button>
       </td>
     `;
+    
     // Adiciona a linha na tabela
     tbody.appendChild(tr);
   });
