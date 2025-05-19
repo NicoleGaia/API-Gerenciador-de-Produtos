@@ -6,8 +6,12 @@
 // Importa o Express
 import express, { json } from 'express';
 import productRoutes from './routes/productRoutes.js';
+import cors from 'cors';
 
 const app = express();
+
+// Habilita CORS para todas as rotas
+app.use(cors());
 
 // Middleware para interpretar JSON
 app.use(json());
@@ -19,3 +23,4 @@ app.use('/produtos', productRoutes);
 app.listen(3000, () => {
   console.log('API de Produtos rodando na porta 3000');
 });
+

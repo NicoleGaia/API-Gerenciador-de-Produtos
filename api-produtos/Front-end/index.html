@@ -1,0 +1,114 @@
+<!-- Exemplo de front-end simples para a API de Produtos -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Gerenciador de Produtos</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; background: #f7f7f7; }
+    h1 { color: #333; }
+    form { margin-bottom: 20px; }
+    input, button { padding: 8px; margin: 4px; }
+    table { border-collapse: collapse; width: 100%; background: #fff; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    th { background: #eee; }
+    tr:nth-child(even) { background: #f9f9f9; }
+    .actions button { margin-right: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Gerenciador de Produtos</h1>
+  <form id="product-form">
+    <input type="text" id="nome" placeholder="Nome do produto" required>
+    <input type="number" id="preco" placeholder="Preço" step="0.01" required>
+    <button type="submit">Adicionar</button>
+  </form>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Preço</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody id="produtos-tbody"></tbody>
+  </table>
+
+  <script>
+    const API_URL = 'http://localhost:3000/produtos';
+
+    async function fetchProdutos() {
+      const res = await fetch(API_URL);
+      const produtos = await res.json();
+      const tbody = document.getElementById('produtos-tbody');
+      tbody.innerHTML = '';
+      produtos.forEach(produto => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${produto.id}</td>
+          <td>${produto.nome}</td>
+          <td>R$ ${produto.preco.toFixed(2)}</td>
+          <td class="actions">
+            <button onclick="editarProdutoPrompt(${produto.id}, '${produto.nome}', ${produto.preco})">Editar</button>
+            <button onclick="removerProduto(${produto.id})">Excluir</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    async function adicionarProduto(event) {
+      event.preventDefault();
+      const nome = document.getElementById('nome').value;
+      const preco = parseFloat(document.getElementById('preco').value);
+
+      const res = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome, preco })
+      });
+
+      if (res.ok) {
+        document.getElementById('product-form').reset();
+        fetchProdutos();
+      } else {
+        const erro = await res.json();
+        alert('Erro ao adicionar produto: ' + (erro.mensagem || 'Erro desconhecido'));
+      }
+    }
+
+    async function removerProduto(id) {
+      if (!confirm('Tem certeza que deseja excluir este produto?')) return;
+      await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+      fetchProdutos();
+    }
+
+    async function editarProdutoPrompt(id, nomeAtual, precoAtual) {
+      const nome = prompt('Novo nome do produto:', nomeAtual);
+      if (nome === null) return;
+      const preco = parseFloat(prompt('Novo preço:', precoAtual));
+      if (isNaN(preco)) {
+        alert('Preço inválido!');
+        return;
+      }
+      const res = await fetch(`${API_URL}/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome, preco })
+      });
+      if (res.ok) {
+        fetchProdutos();
+      } else {
+        const erro = await res.json();
+        alert('Erro ao editar produto: ' + (erro.mensagem || 'Erro desconhecido'));
+      }
+    }
+
+    document.getElementById('product-form').addEventListener('submit', adicionarProduto);
+
+    // Carrega os produtos ao abrir a página
+    fetchProdutos();
+  </script>
+</body>
+</html>
